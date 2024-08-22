@@ -1,0 +1,9 @@
+h1{
+    text-align: center;
+    color: lime;
+}
+
+p{
+    margin: 20rem auto;
+    width: fit-content;
+}
