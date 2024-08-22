@@ -1,0 +1,6 @@
+.terraform
+.terraform.*
+
+
+node_modules
+*lock.*
