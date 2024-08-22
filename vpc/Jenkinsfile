@@ -1,0 +1,31 @@
+pipeline {
+  agent any
+  
+  tools {
+      terraform 'Terraform'
+  }
+    
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'terraform', url: 'https://github.com/dhawal-901/jenkins-task-3.git'
+      }
+    }
+    
+    stage('Initialize Terraform') {
+      steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-901']]) {
+          sh 'cd vpc && terraform init'
+        }
+      }
+    }
+
+    stage('Apply changes in Terraform') {
+      steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-901']]) {
+          sh 'cd vpc && terraform apply -auto-approve'
+        }
+      }
+    }
+  }
+}

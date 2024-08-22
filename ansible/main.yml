@@ -1,0 +1,85 @@
+---
+- name: Install Docker and Jenkins
+  hosts: servers
+  become: true
+
+  tasks:
+    - name: Update APT package index
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all APT packages
+      apt:
+        upgrade: dist
+        autoremove: yes
+        autoclean: yes
+
+    - name: Install prerequisites for Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker apt repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update APT package index again after adding Docker repo
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add the user 'ubuntu' with a specific in 'docker' group
+      ansible.builtin.user:
+        name: ubuntu
+        comment: Ubuntu added into docker group
+        group: docker
+      
+    - name: add jenkins key 
+      apt_key:  # ansible module to add key
+        url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        state: present 
+
+    - name: add jenkins repo 
+      apt_repository: #ansible module to add repo 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+        state: present 
+
+    - name: install java #install java as jenkins need jdk
+      apt: 
+        name: openjdk-11-jre
+        state: present
+
+    - name: install jenkins  #install jenkins
+      apt: 
+        name: jenkins 
+        state: present 
+
+    - name: start jenkins service 
+      service: 
+        name: jenkins 
+        state: started 
+
+    - name: enable jenkins to start at boot time 
+      service: 
+        name: jenkins 
+        enabled: yes 
