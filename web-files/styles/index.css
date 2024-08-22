@@ -4,7 +4,7 @@ h1{
 }
 
 p{
-    margin: 5rem auto;
+    margin: 1rem auto;
     width: fit-content;
     font-size: 1.4rem;
 }
@@ -23,4 +23,10 @@ a {
 
 a:hover{
     opacity: 1;
+}
+
+div{
+    margin: 6rem auto;
+    width: fit-content;
+    font-size: 1rem;
 }
