@@ -1,9 +1,26 @@
 h1{
     text-align: center;
-    color: lime;
+    color: rgb(102, 0, 255);
 }
 
 p{
-    margin: 20rem auto;
+    margin: 5rem auto;
     width: fit-content;
+    font-size: 1.4rem;
+}
+a {
+    display: block;
+    width: fit-content;
+    padding: 1rem 4rem;
+    margin-inline: auto;
+    background-color: rgb(0, 255, 238);
+    color: rgb(0, 26, 255);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+a:hover{
+    opacity: 1;
 }
