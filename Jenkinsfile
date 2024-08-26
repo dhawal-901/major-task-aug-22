@@ -14,7 +14,7 @@ pipeline {
             steps{
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     script{
-                        sh "aws s3 cp ./web-files/ s3://app.test2.dhawal.in.net/ --recursive"
+                        sh "aws s3 cp ./web-files/ s3://www.myapp.test.dhawal.in.net/ --recursive"
                     }
                 }
             }
